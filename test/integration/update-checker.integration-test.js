@@ -21,6 +21,9 @@ describe('updateChecker', function () {
       await checkUpdate(latestVersion).should.eventually.equal(false);
     });
     it('should find something if latest release is different from current release', async function () {
+      if (process.env.TRAVIS) {
+        this.skip();
+      }
       const {name, notes, pub_date, url} = await checkUpdate('v0.0.0');
       name.should.be.a.string;
       notes.should.be.a.string;
