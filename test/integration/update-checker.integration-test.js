@@ -28,7 +28,7 @@ describe('updateChecker', function () {
       url.should.be.a.string;
     });
     it('should return false if request for update throws error', async function () {
-      let promiseStub = sinon.stub(request, 'get', () => { throw new Error(`Failed Request`); });
+      let promiseStub = sinon.stub(request, 'get').callsFake(() => { throw new Error(`Failed Request`); });
       await checkUpdate('v0.0.0').should.eventually.be.false;
       promiseStub.restore();
     });
